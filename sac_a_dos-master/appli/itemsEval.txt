@@ -1,0 +1,13 @@
+Lampe ; 2.0 ; 10
+Eau ; 6 ; 23
+Sac de couchage ; 1.0 ; 3
+Hamac ; 5 ; 20
+Camping gaz ; 3.0 ; 15
+Assiette ; 1 ; 4
+Tente ; 7 ; 25
+Couverts ; 2 ; 7
+Corde ; 3 ; 7
+Casserole ; 4 ; 18
+Conserves ; 3 ; 14
+Coussin ; 1 ; 7
+Hache ; 2 ; 10
