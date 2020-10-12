@@ -6,20 +6,20 @@ public class ABR {
 	private ABR leftTree, rightTree;
 	
 	private int profondeur;
-	private static double borneInferieure; 
-	// meilleure valeur trouvée pour l'instant (utile pour la construction ET pour solution()
-	private double borneSuperieure;
-	// la valeur max que pourra avoir la combinaison finale à partir d'un noeud
+	private static float borneInferieure; 
+	// meilleure valeur trouvÃ©e pour l'instant (utile pour la construction ET pour solution()
+	private float borneSuperieure;
+	// la valeur max que pourra avoir la combinaison finale Ã  partir d'un noeud
 	
 	private static Objet[] tabMeilleureValeur; 
-	// tableau correspondant à la meilleure valeur trouvée dans l'arbre (par borne inférieure lors de la construction)
+	// tableau correspondant Ã  la meilleure valeur trouvÃ©e dans l'arbre (par borne infÃ©rieure lors de la construction)
 	
 	
 	/*
-	 *  Constructeur récursif
-	 *  Construction des combinaisons possibles ET qui ont un intérêt
+	 *  Constructeur rÃ©cursif
+	 *  Construction des combinaisons possibles ET qui ont un intÃ©rÃªt
 	 */
-	public ABR(Objet[] listeObjetsSac, double poidsLimite, Objet[] tabObj, int i){
+	public ABR(Objet[] listeObjetsSac, float poidsLimite, Objet[] tabObj, int i){
 		if (i <= listeObjetsSac.length) {
 			
 			// recopiage dans this.value le tableau tabObj
@@ -39,18 +39,18 @@ public class ABR {
 			
 				tabObj[i] = listeObjetsSac[i];
 				if (this.poidsListeObjets(tabObj)<=poidsLimite && this.borneSuperieure>ABR.borneInferieure){
-					// vérification pour raccourcir l'arbre (les combinaisons sans intérêts ne sont pas créées)
+					// vÃ©rification pour raccourcir l'arbre (les combinaisons sans intÃ©rÃªts ne sont pas crÃ©Ã©es)
 					this.rightTree = new ABR(listeObjetsSac, poidsLimite, tabObj, i+1);
 				}
-				tabObj[i] = null; // pour supprimer le dernier objet dans tabObj MAIS AUSSI dans this.value (car référence)
+				tabObj[i] = null; // pour supprimer le dernier objet dans tabObj MAIS AUSSI dans this.value (car rÃ©fÃ©rence)
 			}
 			
 		}
 	}
 	
 	/*
-	 * fonction récursive pour trouver la combinaison (en initialisant l'attribut statique tabMeilleureValeur)_ 
-	 * à partir de la meilleure valeur trouvée dans tout le tableau (qui est obtenue avec borneInferieure en construisant l'arbre)
+	 * fonction rÃ©cursive pour trouver la combinaison (en initialisant l'attribut statique tabMeilleureValeur)_ 
+	 * Ã  partir de la meilleure valeur trouvÃ©e dans tout le tableau (qui est obtenue avec borneInferieure en construisant l'arbre)
 	 */
 	public void chercherSolution(){
 		if (this.valeurListeObjets() == ABR.borneInferieure){
@@ -73,17 +73,17 @@ public class ABR {
 		}	
 	}
 	
-	public double getBorneInferieure(){
+	public float getBorneInferieure(){
 		return ABR.borneInferieure;
 	}
 	
-	public double getBorneSuperieure(){
+	public float getBorneSuperieure(){
 		return this.borneSuperieure;
 	}
 	
 	/*
-	 * mis à jour de l'attribut statique borneInferieure lorsqu'une meilleure valeur (correspondant à une combinaison) est trouvée
-	 * mis à jour lors de la construction de l'arbre
+	 * mis Ã  jour de l'attribut statique borneInferieure lorsqu'une meilleure valeur (correspondant Ã  une combinaison) est trouvÃ©e
+	 * mis Ã  jour lors de la construction de l'arbre
 	 */
 	public void calculBorneInferieure(){
 		if (this.valeurListeObjets() > ABR.borneInferieure){
@@ -92,10 +92,10 @@ public class ABR {
 	}
 	
 	/*
-	 * calcul pour chaque noeud (ABR) la valeur max que pourra avoir la combinaison finale à partir d'un noeud
+	 * calcul pour chaque noeud (ABR) la valeur max que pourra avoir la combinaison finale Ã  partir d'un noeud
 	 */
 	public void calculBorneSuperieure(Objet[] listeObjetsSac){
-		double res = 0.0;
+		float res = 0.0;
 		res += this.valeurListeObjets(); // valeur totale du noeud courant
 		for (int i=this.profondeur; i<listeObjetsSac.length; ++i){
 			res += listeObjetsSac[i].getValeur(); // ajout des valeurs des objets restants
@@ -106,8 +106,8 @@ public class ABR {
 	/*
 	 * retourne la valeur totale de this.value (tableau d'objets)
 	 */
-	public double valeurListeObjets(){
-		double res=0.0;
+	public float valeurListeObjets(){
+		float res=0.0;
 		for(int i=0; i<this.value.length; ++i){
 			if (this.value[i] != null){
 				res += this.value[i].getValeur();
@@ -119,8 +119,8 @@ public class ABR {
 	/*
 	 * retourne le poids total de this.value (tableau d'objets)
 	 */
-	public double poidsListeObjets(){
-		double res=0.0;
+	public float poidsListeObjets(){
+		float res=0.0;
 		for(int i=0; i<this.value.length; ++i){
 			if (this.value[i] != null){
 				res += this.value[i].getValeur();
@@ -132,8 +132,8 @@ public class ABR {
 	/*
 	 * retourne la valeur totale d'un tableau d'objets
 	 */
-	public double valeurListeObjets(Objet[] listeObjets){
-		double res=0.0;
+	public float valeurListeObjets(Objet[] listeObjets){
+		float res=0.0;
 		for(int i=0; i<listeObjets.length; ++i){
 			if (listeObjets[i] != null){
 				res += listeObjets[i].getValeur();
@@ -145,8 +145,8 @@ public class ABR {
 	/*
 	 * retourne le poids total d'un tableau d'objets
 	 */
-	public double poidsListeObjets(Objet[] listeObjets){
-		double res=0.0;
+	public float poidsListeObjets(Objet[] listeObjets){
+		float res=0.0;
 		for(int i=0; i<listeObjets.length; ++i){
 			if (listeObjets[i] != null){
 				res += listeObjets[i].getPoids();
