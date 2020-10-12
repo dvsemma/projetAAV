@@ -8,7 +8,7 @@ public class SacADos {
 	private double poidsLimite;
 	private Objet[] listeObjets; // les 3 algorithmes vont changer l'attribut stockage pour chaque Objet
 	
-	
+	// changer les doubles en float
 	public SacADos(String chemin, double poidsLimite) throws FileNotFoundException{
 		
 		// initialisation de nbObj
@@ -45,7 +45,7 @@ public class SacADos {
 		}
 	}
 	
-	public void rÈsoudre(String cmd) throws Exception{
+	public void r√©soudre(String cmd) throws Exception{
 		if (cmd.equals("glouton")){
 			this.glouton();
 		}
@@ -66,7 +66,7 @@ public class SacADos {
 		
 		for (int i=0; i<this.listeObjets.length; ++i){
 			this.listeObjets[i].setStockage(1);
-			// modification de l'attribut stockage (pour connaÓtre les objets stockÈs dans le sac)
+			// modification de l'attribut stockage (pour conna√Ætre les objets stock√©s dans le sac)
 			if (poidsSac(this.listeObjets)>poidsLimite){
 				this.listeObjets[i].setStockage(0);
 			}
@@ -76,7 +76,7 @@ public class SacADos {
 	
 	/*
 	 * fonction qui prend un tableau pour effectuer un tri rapide dessus
-	 * @return un tableau triÈ
+	 * @return un tableau tri√©
 	 */
 	public Objet[] quickSort(Objet[] listeObjets, int premier, int dernier){
 		if (premier < dernier){
@@ -98,7 +98,7 @@ public class SacADos {
 	}
 	
 	/*
-	 * fonction de rÈpartition (met les ÈlÈments < pivot a gauchet et > pivot ‡ droite
+	 * fonction de r√©partition (met les √©l√©ments < pivot a gauchet et > pivot √† droite
 	 * @return un struct (tableau + pivot)
 	 */
 	public TabEtPivot repartition(Objet[] listeObjets, int premier, int dernier, int pivot){
@@ -106,7 +106,7 @@ public class SacADos {
 		listeObjets = echanger(listeObjets, pivot, dernier);
 		int j = premier;
 		for (int i=premier; i<dernier; ++i){
-			if (listeObjets[i].compareTo(listeObjets[dernier]) > 0){ // tri dÈcroissant
+			if (listeObjets[i].compareTo(listeObjets[dernier]) > 0){ // tri d√©croissant
 				echanger(listeObjets,i,j);
 				j++;
 			}
@@ -118,7 +118,7 @@ public class SacADos {
 	}
 	
 	/*
-	 * fonction pour Èchanger deux valeurs dans le tableau
+	 * fonction pour √©changer deux valeurs dans le tableau
 	 */
 	public Objet[] echanger(Objet[] listeObjets, int i, int j){
 		Objet tmp = listeObjets[i];
@@ -156,25 +156,25 @@ public class SacADos {
 			}
 		}
 		
-		// on rÈcupËre dans la derniËre ligne le poids minimal nÈcessaire pour faire le bÈnÈfice optimal
+		// on r√©cup√®re dans la derni√®re ligne le poids minimal n√©cessaire pour faire le b√©n√©fice optimal
 		int i=listeObjets.length-1;
 		int j=(int) (poidsLimite*Appli.nbAMultiplier);
 		while (tab[i][j]==tab[i][j-1]){
 			--j;
 		}
 		
-		// on rÈcupËre ensuite les objets
+		// on r√©cup√®re ensuite les objets
 		while(j>0){
 			while(i>0 && tab[i][(int) j]==tab[i-1][(int) j]){ 
-			// si sans l'objet on fait la mÍme valeur (mÍme nombre sur la colonne)
+			// si sans l'objet on fait la m√™me valeur (m√™me nombre sur la colonne)
 				--i;
 			}
 			
 			j=j-(int) (listeObjets[i].getPoids()*Appli.nbAMultiplier); 
-			// on ne prend plus en compte le poids de l'objet prÈcÈdent (on retire son poids)
+			// on ne prend plus en compte le poids de l'objet pr√©c√©dent (on retire son poids)
 			if (j>=0){ 
 				this.listeObjets[i].setStockage(1); 
-				// modification de l'attribut stockage (pour connaÓtre les objets stockÈs dans le sac)
+				// modification de l'attribut stockage (pour conna√Ætre les objets stock√©s dans le sac)
 			}
 			--i;
 		}
@@ -194,7 +194,7 @@ public class SacADos {
 		for (int i=0; i<this.listeObjets.length; ++i){
 			if (tabSolution[i] != null){
 				this.listeObjets[i].setStockage(1);
-				// modification de l'attribut stockage (pour connaÓtre les objets stockÈs dans le sac)
+				// modification de l'attribut stockage (pour conna√Ætre les objets stock√©s dans le sac)
 			}
 		}
 	}
