@@ -5,11 +5,11 @@ import java.util.Scanner;
 
 
 public class SacADos {
-	private double poidsLimite;
+	private float poidsLimite;
 	private Objet[] listeObjets; // les 3 algorithmes vont changer l'attribut stockage pour chaque Objet
 	
 	// changer les doubles en float
-	public SacADos(String chemin, double poidsLimite) throws FileNotFoundException{
+	public SacADos(String chemin, float poidsLimite) throws FileNotFoundException{
 		
 		// initialisation de nbObj
 		int nbObj = 0; // nombre d'objets dans le fichier
@@ -35,7 +35,7 @@ public class SacADos {
 			while (sc2.hasNextLine()){
 				s = sc2.nextLine(); 
 				tab = s.split("\\s+" + ";" + "\\s+");
-				this.listeObjets[i] = new Objet(tab[0], new Double(tab[1]), new Double(tab[2]));
+				this.listeObjets[i] = new Objet(tab[0], new Double(tab[1]), new Double(tab[2])); // Double????
 				++i;
 			}
 			sc2.close();
@@ -205,8 +205,8 @@ public class SacADos {
 	/*
 	 * fonction qui retourne le poids total pour une liste d'objets
 	 */
-	public double poidsSac(Objet[] listeObjets){
-		double res=0.0;
+	public float poidsSac(Objet[] listeObjets){
+		float res=0.0;
 		for(int i=0; i<listeObjets.length; ++i){
 			if (listeObjets[i] != null){
 				res += listeObjets[i].getStockage() * listeObjets[i].getPoids();
@@ -218,8 +218,8 @@ public class SacADos {
 	/*
 	 * fonction qui retourne la valeur totale pour une liste d'objets
 	 */
-	public double valeurSac(Objet[] listeObjets){
-		double res=0.0;
+	public float valeurSac(Objet[] listeObjets){
+		float res=0.0;
 		for(int i=0; i<listeObjets.length; ++i){
 			if (listeObjets[i] != null){
 				res += listeObjets[i].getStockage() * listeObjets[i].getValeur();
@@ -245,7 +245,7 @@ public class SacADos {
 	/*
 	 * retourne le poids limite pour ce SacADos
 	 */
-	public double getPoidsLimite(){
+	public float getPoidsLimite(){
 		return this.poidsLimite;
 	}
 	
