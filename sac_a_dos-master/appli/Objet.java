@@ -3,12 +3,12 @@ package appli;
 @SuppressWarnings("rawtypes")
 public class Objet implements Comparable{
 	private String nom;
-	private double valeur;
-	private double poids;
-	private double rapport;
+	private float valeur;
+	private float poids;
+	private float rapport;
 	private int stockage;
 	
-	public Objet(String n, double p, double v){
+	public Objet(String n, float p, float v){
 		this.nom = n;
 		this.valeur = v;
 		this.poids = p;
@@ -40,11 +40,11 @@ public class Objet implements Comparable{
 		return this.nom;
 	}
 
-	public double getValeur() {
+	public float getValeur() {
 		return this.valeur;
 	}
 
-	public double getPoids() {
+	public float getPoids() {
 		return this.poids;
 	}
 
@@ -52,7 +52,7 @@ public class Objet implements Comparable{
 		return this.stockage;
 	}
 	
-	public double getRapport(){
+	public float getRapport(){
 		return this.rapport;
 	}
 
