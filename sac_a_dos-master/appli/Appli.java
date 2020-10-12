@@ -9,18 +9,18 @@ public class Appli {
 		double poidsLimite = 40;
 		SacADos sac;
 		try {
-			sac = new SacADos("C:\\Users\\Emma\\Desktop\\AAV Sem3\\sac_a_dos-master\\appli\\itemsEval.txt" ,poidsLimite);
+			sac = new SacADos("C:\\Users\\Emma\\Desktop\\AAV Sem3\\sac_a_dos-master\\appli\\items.txt" ,poidsLimite);
 		} 
 		catch (FileNotFoundException e) {
 			throw new FileNotFoundException("Fichier introuvable");
 		}
 		
-		System.out.println("Méthode glouton tapez : glouton");
-		System.out.println("Méthode dynamique tapez : dynamique");
-		System.out.println("Méthode PSE tapez : pse");
+		System.out.println("MÃ©thode glouton tapez : glouton");
+		System.out.println("MÃ©thode dynamique tapez : dynamique");
+		System.out.println("MÃ©thode PSE tapez : pse");
 		Scanner sc = new Scanner(System.in);
 		String cmd = sc.next();
-		sac.résoudre(cmd);		
+		sac.rÃ©soudre(cmd);		
 		System.out.println(sac.toString());
 		sc.close();
 	}
