@@ -6,7 +6,7 @@ public class Appli {
 	public static final int nbAMultiplier = 10;
 	
 	public static void main(String[] args) throws Exception{
-		double poidsLimite = 40;
+		float poidsLimite = 40;
 		SacADos sac;
 		try {
 			sac = new SacADos("C:\\Users\\Emma\\Desktop\\AAV Sem3\\sac_a_dos-master\\appli\\items.txt" ,poidsLimite);
