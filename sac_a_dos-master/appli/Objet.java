@@ -36,9 +36,7 @@ public class Objet implements Comparable{
 		
 	}
 	
-	public String toString(){
-		return this.nom;
-	}
+
 
 	public float getValeur() {
 		return this.valeur;
@@ -47,17 +45,27 @@ public class Objet implements Comparable{
 	public float getPoids() {
 		return this.poids;
 	}
-
-	public int getStockage() {
-		return this.stockage;
-	}
 	
 	public float getRapport(){
 		return this.rapport;
 	}
+	
+	
+	
 
 	public void setStockage(int n) {
 		this.stockage = n;
 	}
+	
+	public int getStockage() {
+		return this.stockage;
+	}
 
+	
+	
+	
+	public String toString(){
+		return this.nom;
+	}
+	
 }
