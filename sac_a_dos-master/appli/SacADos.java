@@ -5,69 +5,68 @@ import java.util.Scanner;
 
 
 public class SacADos {
-	private float poidsLimite;
+	private float poids_max;
 	private Objet[] listeObjets; // les 3 algorithmes vont changer l'attribut stockage pour chaque Objet
 	
 	// changer les doubles en float
-	public SacADos(String chemin, float poidsLimite) throws FileNotFoundException{
+	public SacADos(String chemin, float poids_max) throws FileNotFoundException{
 		
 		// initialisation de nbObj
-		int nbObj = 0; // nombre d'objets dans le fichier
+		int nb = 0; // nombre d'objets dans le fichier
 		try {
-			Scanner sc1 = new Scanner(new File(chemin));
-			while (sc1.hasNextLine()){
-				++nbObj;
-				sc1.nextLine();
+			Scanner scanner1 = new Scanner(new File(chemin));
+			while (scanner1.hasNextLine()){
+				++nb;
+				scanner1.nextLine();
 			}
-			sc1.close();
+			scanner1.close();
 		}
 		catch (FileNotFoundException e) {
-			throw new FileNotFoundException("Fichier introuvable");
+			throw new FileNotFoundException("Le fichier est introuvable");
 		}
 				
-		this.listeObjets = new Objet[nbObj];
-		this.poidsLimite = poidsLimite;
+		this.listeObjets = new Objet[nb];
+		this.poids_max = poids_max;
 		String s;
 		String[] tab = new String[3];
-		int i=0;
+		int i = 0;
 		try {
-			Scanner sc2 = new Scanner(new File(chemin));
-			while (sc2.hasNextLine()){
-				s = sc2.nextLine(); 
+			Scanner scanner2 = new Scanner(new File(chemin));
+			while (scanner2.hasNextLine()){
+				s = scanner2.nextLine(); 
 				tab = s.split("\\s+" + ";" + "\\s+");
-				this.listeObjets[i] = new Objet(tab[0], new Double(tab[1]), new Double(tab[2])); // Double????
+				this.listeObjets[i] = new Objet(tab[0], new float(tab[1]), new float(tab[2])); // Double???? new Double(tab[1]), new Double(tab[2]
 				++i;
 			}
-			sc2.close();
+			scanner2.close();
 		} 
 		catch (FileNotFoundException e) {
-			throw new FileNotFoundException("Fichier introuvable");
+			throw new FileNotFoundException("Le fichier est introuvable");
 		}
 	}
 	
-	public void résoudre(String cmd) throws Exception{
-		if (cmd.equals("glouton")){
-			this.glouton();
+	public void résoudre(String methode) throws Exception{
+		if (methode.equals("gloutonne")){
+			this.gloutonne();
 		}
-		if (cmd.equals("dynamique")){
+		if (methode.equals("dynamique")){
 			this.dynamique();
 		}
-		if (cmd.equals("pse")){
+		if (methode.equals("pse")){
 			this.pse();
 		}
 	}
 	
 	//////////////////////////////////       ALGO GLOUTON        /////////////////////////////////////
 	
-	public void glouton(){
+	public void gloutonne(){
 		 
 		this.listeObjets = quickSort(this.listeObjets, 0, this.listeObjets.length-1); 
-	//	this.listeObjets = triBulles(this.listeObjets);
 		
 		for (int i=0; i<this.listeObjets.length; ++i){
 			this.listeObjets[i].setStockage(1);
 			// modification de l'attribut stockage (pour connaître les objets stockés dans le sac)
-			if (poidsSac(this.listeObjets)>poidsLimite){
+			if (poidsSac(this.listeObjets)>poids_max){
 				this.listeObjets[i].setStockage(0);
 			}
 		}
@@ -78,13 +77,13 @@ public class SacADos {
 	 * fonction qui prend un tableau pour effectuer un tri rapide dessus
 	 * @return un tableau trié
 	 */
-	public Objet[] quickSort(Objet[] listeObjets, int premier, int dernier){
-		if (premier < dernier){
-			TabEtPivot infos = new TabEtPivot();
-			int p = choixPivot(listeObjets, premier, dernier);
-			infos = repartition(listeObjets, premier, dernier, p);
-			quickSort(infos.getTab(), premier, infos.getPivot()-1); 
-			quickSort(infos.getTab(), infos.getPivot()+1, dernier); 
+	public Objet[] quickSort(Objet[] listeObjets, int begin, int end){
+		if (begin < end){
+			TableauEtPivot infos = new TableauEtPivot();
+			int p = choixPivot(listeObjets, begin, end);
+			infos = repartition(listeObjets, begin, end, p);
+			quickSort(infos.getTab(), begin, infos.getPivot()-1); 
+			quickSort(infos.getTab(), infos.getPivot()+1, end); 
 		}
 		return listeObjets;
 	}
@@ -93,25 +92,25 @@ public class SacADos {
 	 * choix du pivot
 	 * @return indice du pivot
 	 */
-	public int choixPivot(Objet[] listeObjets, int premier, int dernier){
-		return (premier + dernier) / 2;
+	public int choixPivot(Objet[] listeObjets, int begin, int end){
+		return (begin + end) / 2;
 	}
 	
 	/*
 	 * fonction de répartition (met les éléments < pivot a gauchet et > pivot à droite
 	 * @return un struct (tableau + pivot)
 	 */
-	public TabEtPivot repartition(Objet[] listeObjets, int premier, int dernier, int pivot){
-		TabEtPivot infos = new TabEtPivot();
-		listeObjets = echanger(listeObjets, pivot, dernier);
-		int j = premier;
-		for (int i=premier; i<dernier; ++i){
-			if (listeObjets[i].compareTo(listeObjets[dernier]) > 0){ // tri décroissant
-				echanger(listeObjets,i,j);
+	public TableauEtPivot repartitionPivot(Objet[] listeObjets, int begin, int end, int pivot){
+		TableauEtPivot infos = new TableauEtPivot();
+		listeObjets = echangerValeurs(listeObjets, pivot, end);
+		int j = begin;
+		for (int i = begin ; i<end ; ++i){
+			if (listeObjets[i].compareTo(listeObjets[end]) > 0){ // tri décroissant
+				echangerValeurs(listeObjets,i,j);
 				j++;
 			}
 		}
-		listeObjets = echanger(listeObjets, dernier, j);
+		listeObjets = echangerValeurs(listeObjets, end, j);
 		infos.setTab(listeObjets);
 		infos.setPivot(j);
 		return infos;
@@ -120,7 +119,7 @@ public class SacADos {
 	/*
 	 * fonction pour échanger deux valeurs dans le tableau
 	 */
-	public Objet[] echanger(Objet[] listeObjets, int i, int j){
+	public Objet[] echangerValeurs(Objet[] listeObjets, int i, int j){
 		Objet tmp = listeObjets[i];
 		listeObjets[i] = listeObjets[j];
 		listeObjets[j] = tmp;
@@ -131,11 +130,11 @@ public class SacADos {
 	
 	public void dynamique(){
 		
-		int[][] tab = new int[listeObjets.length][(int) ((poidsLimite*Appli.nbAMultiplier)+1)];
+		int[][] tab = new int[listeObjets.length][(int) ((poids_max*Appli.nbToMultiply)+1)];
 		
 		// remplissage premiere colonne
-		for (int i=0; i<=poidsLimite*Appli.nbAMultiplier; ++i){ // et non pas i<poidsLimite car taille=poidsLimite+1
-			if (listeObjets[0].getPoids()*Appli.nbAMultiplier > i){
+		for (int i=0; i<=poids_max*Appli.nbToMultiply; ++i){ // et non pas i<poidsLimite car taille=poidsLimite+1
+			if (listeObjets[0].getPoids()*Appli.nbToMultiply > i){
 				tab[0][i]=0;
 			}
 			else{
@@ -145,12 +144,12 @@ public class SacADos {
 		
 		// remplissage des autres lignes du tableau
 		for (int i=1; i<listeObjets.length; ++i){
-			for (int j=0; j<=poidsLimite*Appli.nbAMultiplier; ++j){ // et non pas i<poidsLimite car taille=poidsLimite+1
-				if (listeObjets[i].getPoids()*Appli.nbAMultiplier > j){
+			for (int j=0; j<=poids_max*Appli.nbToMultiply; ++j){ // et non pas i<poidsLimite car taille=poidsLimite+1
+				if (listeObjets[i].getPoids()*Appli.nbToMultiply > j){
 					tab[i][j] = tab[i-1][j];
 				}
 				else{
-					tab[i][j] = (int) (Math.max(tab[i-1][j], tab[i-1][(int) (j-(listeObjets[i].getPoids()*Appli.nbAMultiplier))]+listeObjets[i].getValeur())); 
+					tab[i][j] = (int) (Math.max(tab[i-1][j], tab[i-1][(int) (j-(listeObjets[i].getPoids()*Appli.nbToMultiply))]+listeObjets[i].getValeur())); 
 					// pour faire toutes les combinaisons possibles
 				}
 			}
@@ -158,7 +157,7 @@ public class SacADos {
 		
 		// on récupère dans la dernière ligne le poids minimal nécessaire pour faire le bénéfice optimal
 		int i=listeObjets.length-1;
-		int j=(int) (poidsLimite*Appli.nbAMultiplier);
+		int j=(int) (poids_max*Appli.nbToMultiply);
 		while (tab[i][j]==tab[i][j-1]){
 			--j;
 		}
@@ -170,7 +169,7 @@ public class SacADos {
 				--i;
 			}
 			
-			j=j-(int) (listeObjets[i].getPoids()*Appli.nbAMultiplier); 
+			j=j-(int) (listeObjets[i].getPoids()*Appli.nbToMultiply); 
 			// on ne prend plus en compte le poids de l'objet précédent (on retire son poids)
 			if (j>=0){ 
 				this.listeObjets[i].setStockage(1); 
@@ -183,13 +182,13 @@ public class SacADos {
 	////////////////////////////////////////       ALGO PSE       //////////////////////////////
 	
 	public void pse(){
-		Objet[] tabObj = new Objet[this.listeObjets.length];
+		Objet[] tabObjets = new Objet[this.listeObjets.length];
 
-		ABR arbre = new ABR(this.listeObjets, this.poidsLimite, tabObj, 0);
+		ABR arbre = new ABR(this.listeObjets, this.poidsLimite, tabObjets, 0);
 		
-		arbre.chercherSolution();
+		arbre.Solution();
 		
-		Objet[] tabSolution = arbre.getTabMeilleureValeur();
+		Objet[] tabSolution = arbre.getTabMeilleureVal();
 		
 		for (int i=0; i<this.listeObjets.length; ++i){
 			if (tabSolution[i] != null){
@@ -205,27 +204,27 @@ public class SacADos {
 	/*
 	 * fonction qui retourne le poids total pour une liste d'objets
 	 */
-	public float poidsSac(Objet[] listeObjets){
-		float res=0.0;
-		for(int i=0; i<listeObjets.length; ++i){
+	public float poidsFinalSac(Objet[] listeObjets){
+		float resulat = 0.0;
+		for(int i = 0; i<listeObjets.length; ++i){
 			if (listeObjets[i] != null){
-				res += listeObjets[i].getStockage() * listeObjets[i].getPoids();
+				resultat += listeObjets[i].getStockage() * listeObjets[i].getPoids();
 			}
 		}
-		return res;
+		return resultat;
 	}
 	
 	/*
 	 * fonction qui retourne la valeur totale pour une liste d'objets
 	 */
-	public float valeurSac(Objet[] listeObjets){
-		float res=0.0;
+	public float valeurFinaleSac(Objet[] listeObjets){
+		float resultat=0.0;
 		for(int i=0; i<listeObjets.length; ++i){
 			if (listeObjets[i] != null){
-				res += listeObjets[i].getStockage() * listeObjets[i].getValeur();
+				resultat += listeObjets[i].getStockage() * listeObjets[i].getValeur();
 			}
 		}
-		return res;
+		return resultat;
 	}
 	
 	/*
@@ -245,14 +244,14 @@ public class SacADos {
 	/*
 	 * retourne le poids limite pour ce SacADos
 	 */
-	public float getPoidsLimite(){
-		return this.poidsLimite;
+	public float getPoidsMax(){
+		return this.poids_max;
 	}
 	
 	public String toString(){
 		String s = "";
-		s += "Poids total du sac : " + this.poidsSac(this.listeObjets) + System.lineSeparator();
-		s += "Valeur totale du sac : " + this.valeurSac(this.listeObjets) + System.lineSeparator();
+		s += "Le poids total du sac est de : " + this.poidsFinalSac(this.listeObjets) + System.lineSeparator();
+		s += "La valeur totale du sac est de : " + this.valeurFinaleSac(this.listeObjets) + System.lineSeparator();
 		for (Objet o : this.listeObjets){
 			if (o.getStockage() == 1){
 				s+= o.toString() + System.lineSeparator();
