@@ -110,7 +110,7 @@ public class ABR {
 		float resultat = 0.0;
 		for(int i = 0; i<this.valeur.length; ++i){
 			if (this.valeur[i] != null){
-				res += this.valeur[i].getValeur();
+				resultat += this.valeur[i].getValeur();
 			}
 		}
 		return resultat;
@@ -123,7 +123,7 @@ public class ABR {
 		float resultat = 0.0;
 		for(int i = 0; i<this.valeur.length; ++i){
 			if (this.valeur[i] != null){
-				res += this.valeur[i].getValeur();
+				resultat += this.valeur[i].getValeur();
 			}
 		}
 		return resultat;
