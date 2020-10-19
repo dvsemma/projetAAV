@@ -38,7 +38,7 @@ public class ABR {
 				this.arbreGauche = new ABR(listeObj, poids_max, tabVal, i+1);
 			
 				tabVal[i] = listeObj[i];
-				if (this.poidsTotal(tabVal) <= poids_max && this.borneSup>ABR.borneInf){
+				if (this.poidsTotal(tabVal) <= poids_max && this.borneSup > ABR.borneInf){
 					// vérification pour raccourcir l'arbre (les combinaisons sans intérêts ne sont pas créées)
 					this.arbreDroit = new ABR(listeObj, poids_max, tabVal, i+1);
 				}
@@ -66,7 +66,7 @@ public class ABR {
 			if (this.arbreDroit == null){
 				this.arbreGauche.Solution();
 			}
-			if (this.arbreDroit != null && this.larbreGauche != null){
+			if (this.arbreDroit != null && this.arbreGauche != null){
 				this.arbreDroit.Solution();
 				this.arbreGauche.Solution();
 			}
@@ -134,7 +134,7 @@ public class ABR {
 	 */
 	public float valeurTotale(Objet[] listeObj){
 		float resultat = 0.0;
-		for(int i = 0; i<listeObj.length; ++i){
+		for(int i = 0; i < listeObj.length; ++i){
 			if (listeObj[i] != null){
 				resultat += listeObj[i].getValeur();
 			}
@@ -147,7 +147,7 @@ public class ABR {
 	 */
 	public float poidsTotal(Objet[] listeObj){
 		float resultat = 0.0;
-		for(int i = 0; i<listeObj.length; ++i){
+		for(int i = 0; i < listeObj.length; ++i){
 			if (listeObj[i] != null){
 				resultat += listeObj[i].getPoids();
 			}
