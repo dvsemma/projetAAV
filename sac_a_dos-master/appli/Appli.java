@@ -3,7 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Appli {
-	public static final int nbAMultiplier = 10; //tf is this help
+	public static final int nbToMultiply = 10; //tf is this help
 	
 	public static void main(String[] args) throws Exception{
 		float poids_max = 15;
