@@ -1,7 +1,7 @@
 package appli;
 
 //structure pour stocker la valeur de retour de la fonction de répartition du quicksort
-public class TabEtPivot {
+public class TableauEtPivot {
 	
 	private Objet[] tab;
 	private int pivot;
