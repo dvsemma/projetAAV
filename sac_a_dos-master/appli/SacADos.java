@@ -205,7 +205,7 @@ public class SacADos {
 	 * fonction qui retourne le poids total pour une liste d'objets
 	 */
 	public float poidsFinalSac(Objet[] listeObjets){
-		float resulat = 0.0;
+		float resultat = 0;
 		for(int i = 0; i<listeObjets.length; ++i){
 			if (listeObjets[i] != null){
 				resultat += listeObjets[i].getStockage() * listeObjets[i].getPoids();
