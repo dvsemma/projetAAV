@@ -35,7 +35,7 @@ public class SacADos {
 			while (scanner2.hasNextLine()){
 				s = scanner2.nextLine(); 
 				tab = s.split("\\s+" + ";" + "\\s+");
-				this.listeObjets[i] = new Objet(tab[0], new float(tab[1]), new float(tab[2])); // Double???? new Double(tab[1]), new Double(tab[2]
+				this.listeObjets[i] = new Objet(tab[0], new Float(tab[1]), new Float(tab[2])); // Double???? new Double(tab[1]), new Double(tab[2]
 				++i;
 			}
 			scanner2.close();
@@ -66,7 +66,7 @@ public class SacADos {
 		for (int i=0; i<this.listeObjets.length; ++i){
 			this.listeObjets[i].setStockage(1);
 			// modification de l'attribut stockage (pour connaître les objets stockés dans le sac)
-			if (poidsSac(this.listeObjets)>poids_max){
+			if (poidsFinalSac(this.listeObjets)>poids_max){
 				this.listeObjets[i].setStockage(0);
 			}
 		}
