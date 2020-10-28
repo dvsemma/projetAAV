@@ -10,23 +10,23 @@ public class ABR {
 	
 	private int taille;
 	private static int borneInf; 
-	// Valeur qui est nécessairement inférieure à la valeur de la meilleure solution possible.
+	// Valeur qui est nÃ©cessairement infÃ©rieure Ã  la valeur de la meilleure solution possible
 	private int borneSup;
-	// Valeur maximum possible à partir d'un noeud
+	// Valeur maximum possible Ã  partir d'un noeud
 	
 	private static Objet[] tabMeilleureVal; 
-	// tableau de la meilleure valeur trouvée pour l'instant
+	// tableau de la meilleure valeur trouvÃ©e pour l'instant
 	
 	
 	/*
-	 *  Constructeur récursif
-	 *  Constructeur qui permet la creation de combinaisons d'objets dans le sac à dos
-	 *  Les combinaisons crées n'ont que des valeurs non-negligeables
+	 *  Constructeur rÃ©cursif
+	 *  Constructeur qui permet la creation de combinaisons d'objets dans le sac Ã  dos
+	 *  Les combinaisons crÃ©es n'ont que des valeurs non-negligeables
 	 */
 	public ABR(Objet[] listeObj, int poids_max, Objet[] tabVal, int i){
 		if (i <= listeObj.length) {
 			
-			// On recopie le tableau listeObj donné en parametre dans this.valeur 
+			// On recopie le tableau listeObj donnÃ© en parametre dans this.valeur 
 			this.valeur = new Objet[listeObj.length];
 			for (int j=0; j<listeObj.length; ++j){
 				if (tabVal[j] != null){
@@ -53,7 +53,7 @@ public class ABR {
 	}
 	
 	/*
-	 * Fonction récursive
+	 * Fonction rÃ©cursive
 	 * On cherche la meilleure combinaison de valeurs qui offre donc la meilleur solution 
 	 */
 	public void Solution(){
@@ -86,7 +86,7 @@ public class ABR {
 	}
 	
 	/*
-	 * Modification de borneInf lorsqu'une meilleure valeur est trouvée
+	 * Modification de borneInf lorsqu'une meilleure valeur est trouvÃ©e
 	 */
 	public void calculBorneInf(){
 		if (this.valeurTotale() > ABR.borneInf){
@@ -134,7 +134,7 @@ public class ABR {
 	}
 	
 	/*
-	 * Retourne la valeur totale d'un tableau d'objets donné en paramètre
+	 * Retourne la valeur totale d'un tableau d'objets donnÃ© en paramÃ¨tre
 	 */ 
 	public int valeurTotale(Objet[] listeObj){
 		int resultat = 0;
@@ -147,7 +147,7 @@ public class ABR {
 	}
 	
 	/*
-	 * Retourne le poids total d'un tableau d'objets donné en paramètre
+	 * Retourne le poids total d'un tableau d'objets donnÃ© en paramÃ¨tre
 	 */
 	public int poidsTotal(Objet[] listeObj){
 		int resultat = 0;
